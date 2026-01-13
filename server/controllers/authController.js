@@ -88,8 +88,43 @@ export const logout = async (req, res) => {
         res.clearCookie('token', {httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict'});
 
         return res.json({success: true, message: 'Logout Successful'});
-        
+
     }catch(error){
         return res.json({success: false, message: error.message});
+    }
+}
+
+// Send Verify OTP to user email
+export const sendVerifyOtp = async (req, res) => {
+    try{
+
+        const {userId} = req.body;
+
+        const user = await userModel.findById(userId);
+
+        if(user.isAccountVerified){
+            return res.json({success: false, message: 'Account is already verified'});
+        }
+
+        // Generate OTP
+       const otp = String(Math.floor(100000 + Math.random() * 900000));
+
+       user.verifyOtp = otp;
+       user.verifyOtpExpireAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+       
+       await user.save();
+
+         // Send OTP via Email
+         const mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: user.email,
+            subject: 'Verify Your Account',
+            text: `Hello ${user.name},\n\nYour OTP for account verification is: ${otp}\n\nThis OTP is valid for 10 minutes.\n\nBest regards,\nNadil Dulran Gamage`
+        };
+        await transporter.sendMail(mailOptions);
+        res.json({success: true, message: 'Verify OTP sent to your email'});
+
+    }catch(error){
+        res.json({success: false, message: error.message});
     }
 }
