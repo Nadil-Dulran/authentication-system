@@ -11,7 +11,9 @@ const userAuth = async (req, res, next) => {
         const tokenDecoded = jwt.verify(token, process.env.JWT_SECRET);
         
         if(tokenDecoded.id){
-            req.body.userId = tokenDecoded.id;
+            // Ensure req.body exists before assigning
+            req.body = req.body || {};
+            req.body.userId = tokenDecoded.id
         } else {
             return res.json({success: false, message: 'Unauthorized access. Login required.'});
         }
