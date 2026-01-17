@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { assets } from '../assets/assets'
-import { useNavigate } from 'react-router-dom'
+import { data, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContent } from '../context/AppContext'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -29,14 +30,21 @@ const Login = () => {
         setIsLoggedin(true)
         navigate('/')
       }else{
-        alert(data.message)
+        toast.error(data.message)
       }
      
     }else{
+       const {data} =await axios.post(backendUrl + '/api/auth/login', {email, password})
 
+      if(data.success){
+        setIsLoggedin(true)
+        navigate('/')
+      }else{
+        toast.error(data.message)
+      }
     }
     }catch(error){
-      console.log('Error in form submission:', error)
+      toast.error(error.message)
     }
 
     const payload = state === 'Sign Up' ? {name, email, password} : {email, password}
