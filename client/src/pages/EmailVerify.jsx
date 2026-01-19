@@ -9,6 +9,15 @@ const EmailVerify = () => {
                 <h1 className='text-white text-2xl font-semibold text-center mb-4'>Email Verify OTP</h1>
                 <p className='text-center mb-6 text-indigo-300'>Please Enter 6-digit OTP sent to your email</p>
 
+                <div className='flex justify-between mb-8'>
+                  {Array(6).fill(0).map((_, index) => (
+                    <input type="text" maxLength='1' key={index} required className='w-12 h-12 bg-[#333A5C] text-center rounded-md text-white text-xl'/>
+                  ))}
+
+                </div>
+
+                <button className='w-full py-3 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-full text-white font-semibold'> Verify Email</button>
+
               </form>
       
        
