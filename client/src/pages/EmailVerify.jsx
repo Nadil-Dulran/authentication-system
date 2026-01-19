@@ -2,6 +2,21 @@ import React from 'react'
 import { assets } from '../assets/assets'
 
 const EmailVerify = () => {
+
+  const inputRefs = React.useRef([])
+
+  const handleInput = (e, index) => {
+    if(e.target.value.length > 0 && index < inputRefs.current.length -1){
+      inputRefs.current[index + 1].focus();
+    }
+  }
+
+  const handleKeyDown = (e, index) => {
+    if(e.key === 'Backspace' && e.target.value.length === 0 && index > 0){
+      inputRefs.current[index -1].focus();
+    }
+  }
+
   return (
     <div className='flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-purple-300'>
               <img onClick={() => navigate('/')} src={assets.logo} alt="" className='absolute left-5 sm:left-20 top-5 sm:w-32 cursor-pointer'/>
@@ -11,7 +26,11 @@ const EmailVerify = () => {
 
                 <div className='flex justify-between mb-8'>
                   {Array(6).fill(0).map((_, index) => (
-                    <input type="text" maxLength='1' key={index} required className='w-12 h-12 bg-[#333A5C] text-center rounded-md text-white text-xl'/>
+                    <input type="text" maxLength='1' key={index} required className='w-12 h-12 bg-[#333A5C] text-center rounded-md text-white text-xl'
+                    ref={e => inputRefs.current[index] = e} 
+                    onInput={(e) => handleInput(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    />
                   ))}
 
                 </div>
