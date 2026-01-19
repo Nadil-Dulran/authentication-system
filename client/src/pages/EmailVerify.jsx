@@ -17,6 +17,16 @@ const EmailVerify = () => {
     }
   }
 
+  const handlePaste = (e) => {
+    const paste = e.clipboardData.getData('text')
+    const pasteArray = paste.split('');
+    pasteArray.forEach((char, index) => {
+      if(inputRefs.current[index]){
+        inputRefs.current[index].value = char;
+      }
+    })
+  }
+
   return (
     <div className='flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-purple-300'>
               <img onClick={() => navigate('/')} src={assets.logo} alt="" className='absolute left-5 sm:left-20 top-5 sm:w-32 cursor-pointer'/>
@@ -24,7 +34,7 @@ const EmailVerify = () => {
                 <h1 className='text-white text-2xl font-semibold text-center mb-4'>Email Verify OTP</h1>
                 <p className='text-center mb-6 text-indigo-300'>Please Enter 6-digit OTP sent to your email</p>
 
-                <div className='flex justify-between mb-8'>
+                <div className='flex justify-between mb-8' onPaste={handlePaste}>
                   {Array(6).fill(0).map((_, index) => (
                     <input type="text" maxLength='1' key={index} required className='w-12 h-12 bg-[#333A5C] text-center rounded-md text-white text-xl'
                     ref={e => inputRefs.current[index] = e} 
