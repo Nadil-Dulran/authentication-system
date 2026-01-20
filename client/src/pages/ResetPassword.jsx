@@ -41,6 +41,8 @@ const ResetPassword = () => {
         <img onClick={() => navigate('/')} src={assets.logo} alt="" className='absolute left-5 sm:left-20 top-5 sm:w-32 cursor-pointer'/>
         
           {/* enter email to reset password */}
+
+          {!isEmailSent &&
         <form className='bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm'>
           <h1 className='text-white text-2xl font-semibold text-center mb-4'>Reset Password</h1>
                 <p className='text-center mb-6 text-indigo-300'>Please Enter registered email to reset password</p>
@@ -51,9 +53,12 @@ const ResetPassword = () => {
                 </div>
                 <button type="submit" className='w-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white py-2.5 rounded-full mt-3'>Submit</button>
         </form>
+          }
 
 
         {/* OTP input form */}
+
+        {!isOtpSubmited && isEmailSent &&
        
              <form className='bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm'>
                 <h1 className='text-white text-2xl font-semibold text-center mb-4'>Reset Password OTP</h1>
@@ -73,8 +78,11 @@ const ResetPassword = () => {
                 <button type="submit" className='w-full py-2.5 bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-full text-white font-semibold'>Submit</button>
 
               </form>
+ }
 
               {/* Enter new password form */}
+
+              {isOtpSubmited && isEmailSent &&
 
                     <form className='bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm'>
           <h1 className='text-white text-2xl font-semibold text-center mb-4'>New Password</h1>
@@ -86,6 +94,7 @@ const ResetPassword = () => {
                 </div>
                 <button type="submit" className='w-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white py-2.5 rounded-full mt-3'>Submit</button>
         </form>
+             }
 
 
         
