@@ -1,10 +1,13 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const ResetPassword = () => {
 
   const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+
   return (
     <div className='flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-purple-300'>
         <img onClick={() => navigate('/')} src={assets.logo} alt="" className='absolute left-5 sm:left-20 top-5 sm:w-32 cursor-pointer'/>
@@ -15,8 +18,10 @@ const ResetPassword = () => {
                 <p className='text-center mb-6 text-indigo-300'>Please Enter registered email to reset password</p>
                 <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
                   <img src={assets.mail_icon} alt="" className='w-3 h-3'/>
-                  <input type="email" placeholder='Email' className='bg-transparent outline-none text-white'/>
+                  <input type="email" placeholder='Email' className='bg-transparent outline-none text-white'
+                  value={email} onChange={e => setEmail(e.target.value)} required/>
                 </div>
+                <button type="submit" className='w-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white py-2.5 rounded-full mt-3'>Submit</button>
         </form>
         
     </div>
