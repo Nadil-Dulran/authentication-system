@@ -68,3 +68,26 @@ See implementations in:
 
 All responses are JSON: `{ success: boolean, message?: string, ...payload }`.
 
+---
+
+**Environment Variables (.env)**
+- Server (see [server/server.js](server/server.js))
+	- `PORT` (default `4000`)
+	- `MONGODB_URI` (e.g. `mongodb://127.0.0.1:27017`)
+	- `JWT_SECRET` (random string)
+	- `SENDER_EMAIL` (from‑address for emails)
+	- `SMTP_USER`, `SMTP_PASS` (Brevo or your SMTP creds)
+	- `NODE_ENV` (`development` or `production`) – toggles cookie flags
+
+Example:
+
+```
+PORT=4000
+MONGODB_URI=mongodb://127.0.0.1:27017
+JWT_SECRET=changeme-very-secret
+SENDER_EMAIL=you@example.com
+SMTP_USER=your-brevo-user
+SMTP_PASS=your-brevo-pass
+NODE_ENV=development
+```
+
