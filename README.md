@@ -91,3 +91,27 @@ SMTP_PASS=your-brevo-pass
 NODE_ENV=development
 ```
 
+---
+
+**Run Locally**
+1) Server
+```bash
+cd server
+npm install
+npm run server
+```
+
+2) Client
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Ensure the client origin is allowed in [server/server.js](server/server.js) `allowedOrigins` and that the client sends credentials.
+
+Client Axios example:
+```js
+axios.post('/api/auth/login', { email, password }, { withCredentials: true })
+```
+
