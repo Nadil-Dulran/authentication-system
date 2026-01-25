@@ -114,8 +114,6 @@ Client Axios example:
 ```js
 axios.post('/api/auth/login', { email, password }, { withCredentials: true })
 ```
-<<<<<<< Updated upstream
-=======
 
 ---
 
