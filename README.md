@@ -128,3 +128,11 @@ axios.post('/api/auth/login', { email, password }, { withCredentials: true })
 	- `POST /reset-password` with `{ email, otp, newPassword }` → validates OTP/expiry → saves new hashed password.
 
 ---
+
+**Security Notes**
+- Cookies are `httpOnly`. In production, `secure: true` and `sameSite: 'none'` are used; adjust CORS origins accordingly.
+- Use HTTPS in production so secure cookies are sent.
+- Never log secrets; keep `.env` out of version control.
+
+
+
