@@ -114,3 +114,19 @@ Client Axios example:
 ```js
 axios.post('/api/auth/login', { email, password }, { withCredentials: true })
 ```
+<<<<<<< Updated upstream
+=======
+
+---
+
+**Auth & Verification Flows**
+- Registration/Login
+	- Hash password with bcrypt → save user → issue JWT cookie.
+- Verify Email
+	- `POST /send-verify-otp` (requires cookie) → generates 6‑digit OTP → stores OTP + expiry → emails OTP.
+	- `POST /verify-account` with `{ userId, otp }` → marks user verified if OTP matches and not expired.
+- Reset Password
+	- `POST /send-reset-otp` with `{ email }` → generates 6‑digit OTP → emails OTP.
+	- `POST /reset-password` with `{ email, otp, newPassword }` → validates OTP/expiry → saves new hashed password.
+
+---
