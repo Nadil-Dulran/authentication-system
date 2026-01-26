@@ -134,5 +134,9 @@ axios.post('/api/auth/login', { email, password }, { withCredentials: true })
 - Use HTTPS in production so secure cookies are sent.
 - Never log secrets; keep `.env` out of version control.
 
+---
 
-
+**Troubleshooting**
+- "Unauthorized access. Login required.": Ensure cookie `token` is present; in Axios set `{ withCredentials: true }` and server CORS has `credentials: true` and correct `origin`.
+- "Cannot set properties of undefined (setting 'userId')": Fixed by initializing `req.body` in [server/middleware/userAuth.js](server/middleware/userAuth.js). Make sure you’re sending requests with proper cookies.
+- Email not sending: Verify `SMTP_USER`/`SMTP_PASS` and that your provider allows SMTP relay on the configured port.
