@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
+import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from '../config/emailTemplates.js';    
 
 export const register = async (req, res) => {
     const {name, email, password} = req.body;
@@ -119,7 +120,8 @@ export const sendVerifyOtp = async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Verify Your Account',
-            text: `Hello ${user.name},\n\nYour OTP for account verification is: ${otp}\n\nThis OTP is valid for 10 minutes.\n\nBest regards,\nNadil Dulran Gamage`
+            // text: `Hello ${user.name},\n\nYour OTP for account verification is: ${otp}\n\nThis OTP is valid for 10 minutes.\n\nBest regards,\nNadil Dulran Gamage`, 
+            html: EMAIL_VERIFY_TEMPLATE.replace("{username}", user.name).replace("{{email}}", user.email).replace("{{otp}}", otp)
         };
         await transporter.sendMail(mailOptions);
         res.json({success: true, message: 'Verify OTP sent to your email'});
@@ -205,7 +207,8 @@ export const sendResetOtp = async (req, res) => {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Password Reset OTP',
-            text: `Hello ${user.name},\n\nYour OTP for password reset is: ${otp}\n\nThis OTP is valid for 5 minutes.\n\nBest regards,\nNadil Dulran Gamage`
+            // text: `Hello ${user.name},\n\nYour OTP for password reset is: ${otp}\n\nThis OTP is valid for 5 minutes.\n\nBest regards,\nNadil Dulran Gamage`,
+            html: PASSWORD_RESET_TEMPLATE.replace("{username}", user.name).replace("{{email}}", user.email).replace("{{otp}}", otp)
         };
 
         await transporter.sendMail(mailOptions);
